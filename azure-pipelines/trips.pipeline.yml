@@ -35,7 +35,12 @@ jobs:
       imageName: '$(imageName)'
       dockerContext: '$(dockerContext)'
 
-- template: templates/docker-push-master.job.yml
+- job: docker_push
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
+    - template: templates/docker-push.steps.yml
   parameters:
     imageName: '$(imageName)'
     dockerId: '$(dockerId)'
