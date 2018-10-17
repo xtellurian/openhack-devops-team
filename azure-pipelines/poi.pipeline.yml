@@ -42,7 +42,7 @@ jobs:
       imageName: '$(imageName)'
       dockerId: '$(dockerId)'
       dockerpswd: '$(dockerpswd)'
-  - task: PublishBuildArtifacts
+  - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: 'apis/poi/helm' 
       artifactName: 'helm' 
