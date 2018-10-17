@@ -41,7 +41,7 @@ jobs:
     vmImage: 'Ubuntu 16.04'
   steps:
     - template: templates/docker-push.steps.yml
-  parameters:
-    imageName: 'trips:$(build.buildId)'
-    dockerfilePath: 'apis/trips/Dockerfile'
-    dockerContext: 'apis/trips/'
+    parameters:
+      imageName: '$(imageName)'
+      dockerId: '$(dockerId)'
+      dockerpswd: '$(dockerpswd)'

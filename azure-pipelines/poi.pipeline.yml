@@ -39,7 +39,7 @@ jobs:
     vmImage: 'Ubuntu 16.04'
   steps:
     - template: templates/docker-push.steps.yml
-  parameters:
-    imageName: '$(imageName)'
-    dockerId: '$(dockerId)'
-    dockerpswd: '$(dockerpswd)'
+    parameters:
+      imageName: '$(imageName)'
+      dockerId: '$(dockerId)'
+      dockerpswd: '$(dockerpswd)'
