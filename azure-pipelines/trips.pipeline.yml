@@ -1,0 +1,32 @@
+# Docker image
+# Build a Docker image to deploy, run, or push to a container registry.
+# Add steps that use Docker Compose, tag images, push to a registry, run an image, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+jobs:
+- job: test
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  variables: 
+    testProj: ''
+  steps:
+  - script: echo TODO
+
+- job: docker_build_push
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  variables:
+    imageName: 'devopsopenhack/poi-web:$(build.buildId)'
+    dockerfilePath: 'trips/Dockerfile'
+    dockerContext: 'trips/'
+  steps:
+  - template: templates/docker-build.steps.yml
+    parameters:
+      dockerfilePath: '$(dockerfilePath)'
+      imageName: '$(imageName)'
+      dockerContext: '$(dockerContext)'
+  - template: templates/docker-push.steps.yml
+    parameters:
+      imageName: '$(imageName)'
+      dockerId: '$(dockerId)'
+      dockerpswd: '$(dockerpswd)'

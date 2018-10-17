@@ -1,0 +1,10 @@
+# File: templates/docker-push.steps.yml
+
+parameters:
+  dockerfilePath: ''  # defaults for any parameters that aren't specified
+  imageName: ''
+  dockerContext: ''
+
+steps:
+- script: docker build -f $(dockerfilePath) -t $(imageName) $(dockerContext)
+  displayName: 'docker build $(imageName)'
