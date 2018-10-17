@@ -34,7 +34,6 @@ jobs:
     displayName: 'docker build poi-web'
 
 - template: templates/docker-push-master.job.yml
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   parameters:
     imageName: '$(imageName)'
     dockerId: '$(dockerId)'
