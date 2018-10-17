@@ -33,11 +33,8 @@ jobs:
   - script: docker build -f $(dockerfilePath) -t $(imageName) $(dockerContext)
     displayName: 'docker build poi-web'
 
-- job: docker_push
-  pool:
-    vmImage: 'Ubuntu 16.04'
+- template: templates/docker-push-master.job.yml
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-  template: templates/docker-push-master.job.yml
   parameters:
     imageName: '$(imageName)'
     dockerId: '$(dockerId)'
