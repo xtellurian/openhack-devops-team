@@ -8,20 +8,23 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   variables: 
-    testProj: 'apis/poi/tests/UnitTests/UnitTests.csproj'
+    testProj: ''
   steps:
-  - script: dotnet test $(testProj)
+  - script: echo TODO
 
 - job: docker_build_push
   pool:
     vmImage: 'Ubuntu 16.04'
   variables:
-    imageName: 'poi:$(build.buildId)'
-    dockerfilePath: 'apis/poi/web/Dockerfile'
-    dockerContext: 'apis/poi/web'
+    imageName: 'userprofile:$(build.buildId)'
+    dockerfilePath: 'apis/userprofile/Dockerfile'
+    dockerContext: 'apis/userprofile/'
   steps:
-  - script: docker build -f $(dockerfilePath) -t $(imageName) $(dockerContext)
-    displayName: 'docker build poi-web'
+  - template: templates/docker-build.steps.yml
+    parameters:
+      dockerfilePath: '$(dockerfilePath)'
+      imageName: '$(imageName)'
+      dockerContext: '$(dockerContext)'
   - template: templates/docker-push.steps.yml
     parameters:
       imageName: '$(imageName)'
