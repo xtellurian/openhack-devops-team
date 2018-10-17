@@ -21,7 +21,7 @@ jobs:
   steps:
   - script: echo TODO
 
-- job: docker_build_push
+- job: docker_build
   pool:
     vmImage: 'Ubuntu 16.04'
   variables:
@@ -34,9 +34,13 @@ jobs:
       dockerfilePath: '$(dockerfilePath)'
       imageName: '$(imageName)'
       dockerContext: '$(dockerContext)'
-  - template: templates/docker-push.steps.yml
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-    parameters:
-      imageName: '$(imageName)'
-      dockerId: '$(dockerId)'
-      dockerpswd: '$(dockerpswd)'
+
+- job: docker_push
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  template: templates/docker-push-master.job.yml
+  parameters:
+    imageName: '$(imageName)'
+    dockerId: '$(dockerId)'
+    dockerpswd: '$(dockerpswd)'
