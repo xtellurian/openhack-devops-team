@@ -16,9 +16,9 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   variables:
-    imageName: 'devopsopenhack/poi-web:$(build.buildId)'
-    dockerfilePath: 'trips/Dockerfile'
-    dockerContext: 'trips/'
+    imageName: 'trips:$(build.buildId)'
+    dockerfilePath: 'apis/trips/Dockerfile'
+    dockerContext: 'apis/trips/'
   steps:
   - template: templates/docker-build.steps.yml
     parameters:
