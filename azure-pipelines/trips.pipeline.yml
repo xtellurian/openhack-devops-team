@@ -2,7 +2,16 @@
 # Build a Docker image to deploy, run, or push to a container registry.
 # Add steps that use Docker Compose, tag images, push to a registry, run an image, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
+name: $(build.buildId)
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - apis/trips/*
+    exclude:
+    - README.md
 jobs:
 - job: test
   pool:
@@ -12,7 +21,7 @@ jobs:
   steps:
   - script: echo TODO
 
-- job: docker_build_push
+- job: docker_build
   pool:
     vmImage: 'Ubuntu 16.04'
   variables:
@@ -25,6 +34,12 @@ jobs:
       dockerfilePath: '$(dockerfilePath)'
       imageName: '$(imageName)'
       dockerContext: '$(dockerContext)'
+
+- job: docker_push
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
   - template: templates/docker-push.steps.yml
     parameters:
       imageName: '$(imageName)'

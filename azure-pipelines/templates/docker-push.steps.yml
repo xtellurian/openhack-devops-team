@@ -1,9 +1,8 @@
-# File: templates/docker-push.steps.yml
-
 parameters:
   imageName: ''  # defaults for any parameters that aren't specified
   dockerId: ''
   dockerpswd: ''
+
 
 steps:
 - script: docker tag $(imageName) $(dockerId).azurecr.io/$(imageName)
