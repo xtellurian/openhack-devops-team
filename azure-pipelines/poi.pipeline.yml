@@ -37,6 +37,10 @@ jobs:
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   pool:
     vmImage: 'Ubuntu 16.04'
+  variables:
+    imageName: 'poi:$(build.buildId)'
+    dockerfilePath: 'apis/poi/web/Dockerfile'
+    dockerContext: 'apis/poi/web'
   steps:
   - template: templates/docker-push.steps.yml
     parameters:
