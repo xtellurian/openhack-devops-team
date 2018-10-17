@@ -7,4 +7,4 @@ parameters:
 
 steps:
 - script: docker build -f $(dockerfilePath) -t $(imageName) $(dockerContext)
-  displayName: 'docker build $(imageName)'
+  displayName: 'docker build'

@@ -10,6 +10,7 @@ trigger:
   paths:
     include:
     - apis/user-java/*
+    - azure-pipelines/user-java*
     exclude:
     - README.md
 jobs:

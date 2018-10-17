@@ -10,9 +10,9 @@ trigger:
   paths:
     include:
     - apis/poi/*
+    - azure-pipelines/poi*
     exclude:
     - README.md
-
 jobs:
 - job: test
   pool:
