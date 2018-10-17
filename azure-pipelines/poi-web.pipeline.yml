@@ -12,7 +12,7 @@ jobs:
   steps:
   - script: dotnet test $(testProj)
 
-- job: docker build and test
+- job: docker_build_push
   pool:
     vmImage: 'Ubuntu 16.04'
   variables:
