@@ -34,18 +34,9 @@ jobs:
       dockerfilePath: '$(dockerfilePath)'
       imageName: '$(imageName)'
       dockerContext: '$(dockerContext)'
-
-- job: docker_push
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-  pool:
-    vmImage: 'Ubuntu 16.04'
-  variables:
-    imageName: 'userprofile:$(build.buildId)'
-    dockerfilePath: 'apis/userprofile/Dockerfile'
-    dockerContext: 'apis/userprofile/'
-  steps:
   - template: templates/docker-push.steps.yml
     parameters:
       imageName: '$(imageName)'
       dockerId: '$(dockerId)'
       dockerpswd: '$(dockerpswd)'
+
