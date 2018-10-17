@@ -42,4 +42,9 @@ jobs:
       imageName: '$(imageName)'
       dockerId: '$(dockerId)'
       dockerpswd: '$(dockerpswd)'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'apis/userprofile/helm' 
+      artifactName: 'helm' 
+      publishLocation: 'Container' # Options: container, filePath
 
