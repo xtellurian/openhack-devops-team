@@ -10,7 +10,7 @@ jobs:
   variables: 
     testProj: 'apis\poi\tests\UnitTests\UnitTests.csproj'
   steps:
-  - scrips: dotnet test $(testProj)
+  - script: dotnet test $(testProj)
 
 - job: docker build and test
   pool:
