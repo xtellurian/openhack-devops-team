@@ -39,6 +39,10 @@ jobs:
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   pool:
     vmImage: 'Ubuntu 16.04'
+  variables:
+    imageName: 'trips:$(build.buildId)'
+    dockerfilePath: 'apis/trips/Dockerfile'
+    dockerContext: 'apis/trips/'
   steps:
   - template: templates/docker-push.steps.yml
     parameters:
