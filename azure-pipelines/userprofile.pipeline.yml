@@ -10,6 +10,7 @@ trigger:
   paths:
     include:
     - apis/userprofile/*
+    - azure-pipelines/userprofile*
     exclude:
     - README.md
 jobs:
@@ -24,6 +25,8 @@ jobs:
 - job: docker_build
   pool:
     vmImage: 'Ubuntu 16.04'
+  dependsOn: test
+  condition: succeeded()
   variables:
     imageName: 'userprofile:$(build.buildId)'
     dockerfilePath: 'apis/userprofile/Dockerfile'
@@ -34,18 +37,9 @@ jobs:
       dockerfilePath: '$(dockerfilePath)'
       imageName: '$(imageName)'
       dockerContext: '$(dockerContext)'
-
-- job: docker_push
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-  pool:
-    vmImage: 'Ubuntu 16.04'
-  variables:
-    imageName: 'userprofile:$(build.buildId)'
-    dockerfilePath: 'apis/userprofile/Dockerfile'
-    dockerContext: 'apis/userprofile/'
-  steps:
   - template: templates/docker-push.steps.yml
     parameters:
       imageName: '$(imageName)'
       dockerId: '$(dockerId)'
       dockerpswd: '$(dockerpswd)'
+

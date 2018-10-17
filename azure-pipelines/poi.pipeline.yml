@@ -10,9 +10,9 @@ trigger:
   paths:
     include:
     - apis/poi/*
+    - azure-pipelines/poi*
     exclude:
     - README.md
-
 jobs:
 - job: test
   pool:
@@ -22,28 +22,24 @@ jobs:
   steps:
   - script: dotnet test $(testProj)
 
-- job: docker_build
+- job: docker_build_push
   pool:
     vmImage: 'Ubuntu 16.04'
+  dependsOn: test
+  condition: succeeded()
   variables:
     imageName: 'poi:$(build.buildId)'
     dockerfilePath: 'apis/poi/web/Dockerfile'
     dockerContext: 'apis/poi/web'
   steps:
-  - script: docker build -f $(dockerfilePath) -t $(imageName) $(dockerContext)
-    displayName: 'docker build poi-web'
-
-- job: docker_push
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-  pool:
-    vmImage: 'Ubuntu 16.04'
-  variables:
-    imageName: 'poi:$(build.buildId)'
-    dockerfilePath: 'apis/poi/web/Dockerfile'
-    dockerContext: 'apis/poi/web'
-  steps:
+  - template: templates/docker-build.steps.yml
+    parameters:
+      dockerfilePath: '$(dockerfilePath)'
+      imageName: '$(imageName)'
+      dockerContext: '$(dockerContext)'
   - template: templates/docker-push.steps.yml
     parameters:
       imageName: '$(imageName)'
       dockerId: '$(dockerId)'
       dockerpswd: '$(dockerpswd)'
+
