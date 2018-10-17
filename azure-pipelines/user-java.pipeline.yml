@@ -24,6 +24,8 @@ jobs:
 - job: docker_build
   pool:
     vmImage: 'Ubuntu 16.04'
+  dependsOn: test
+  condition: succeeded()
   variables:
     imageName: 'user-java:$(build.buildId)'
     dockerfilePath: 'apis/user-java/Dockerfile'

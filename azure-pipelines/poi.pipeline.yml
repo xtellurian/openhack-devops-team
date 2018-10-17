@@ -22,9 +22,11 @@ jobs:
   steps:
   - script: dotnet test $(testProj)
 
-- job: docker_build
+- job: docker_build_push
   pool:
     vmImage: 'Ubuntu 16.04'
+  dependsOn: test
+  condition: succeeded()
   variables:
     imageName: 'poi:$(build.buildId)'
     dockerfilePath: 'apis/poi/web/Dockerfile'
