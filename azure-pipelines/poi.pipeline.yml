@@ -38,7 +38,7 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
-    - template: templates/docker-push.steps.yml
+  - template: templates/docker-push.steps.yml
     parameters:
       imageName: '$(imageName)'
       dockerId: '$(dockerId)'
