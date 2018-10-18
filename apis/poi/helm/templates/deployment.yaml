@@ -22,7 +22,7 @@ spec:
           httpGet:
             path: /api/healthcheck/poi
             port: {{ .Values.image.containerPort }}
-          initialDelaySeconds: 10
+          initialDelaySeconds: 200
           periodSeconds: 30
         readinessProbe:
           httpGet:
