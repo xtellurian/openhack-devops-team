@@ -4,7 +4,7 @@
 
 replicaCount: 2
 repository:
-  image: openhackjwo2acr.azurecr.io/poi
+  image: xopenhackjwo2acr.azurecr.io/poi
   tag: latest
   pullPolicy: Always
 image:
