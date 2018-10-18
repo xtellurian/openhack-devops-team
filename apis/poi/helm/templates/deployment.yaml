@@ -28,8 +28,9 @@ spec:
           httpGet:
             path: /api/healthcheck/poi
             port: {{ .Values.image.containerPort }}
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          initialDelaySeconds: 10
+          periodSeconds: 20
+          failureThreshold: 12
         ports:
           - containerPort: {{ .Values.image.containerPort }}
             name: http
