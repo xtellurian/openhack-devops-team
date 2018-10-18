@@ -18,9 +18,11 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   variables: 
-    testProj: 'apis/poi/tests/UnitTests/UnitTests.csproj'
+    unitTestPath: 'apis/poi/tests/UnitTests/'
+    integrationTestPath: 'apis/poi/tests/IntegrationTests/'
   steps:
-  - script: dotnet test $(testProj)
+  - script: dotnet test $(unitTestPath)
+  - script: dotnet test $(integrationTestPath)
 
 - job: docker_build_push
   pool:
