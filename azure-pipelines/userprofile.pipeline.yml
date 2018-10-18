@@ -20,7 +20,7 @@ jobs:
   variables: 
     testProj: ''
   steps:
-  - script: echo TODO
+  - script: cd apis/userprofile && npm install && npm run test
 
 - job: docker_build
   pool:
