@@ -20,7 +20,7 @@ jobs:
   variables: 
     testProj: ''
   steps:
-  - script: echo TODO
+  - script: cd apis/user-java/ && mvn clean install && mvn test
 
 - job: docker_build
   pool:

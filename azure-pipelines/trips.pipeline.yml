@@ -20,7 +20,7 @@ jobs:
   variables: 
     testProj: ''
   steps:
-  - script: echo TODO
+  - script: cd apis/trips/tests/ && go test
 
 - job: docker_build
   pool:
