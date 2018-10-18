@@ -21,8 +21,16 @@ jobs:
     unitTestPath: 'apis/poi/tests/UnitTests/'
     integrationTestPath: 'apis/poi/tests/IntegrationTests/'
   steps:
-  - script: dotnet test $(unitTestPath)
+  - script: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura $(unitTestPath)
   - script: dotnet test $(integrationTestPath)
+  # Publish Cobertura or JaCoCo code coverage results from a build
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
+      summaryFileLocation: $(unitTestPath)coverage.cobertura.xml
+      #reportDirectory: # Optional
+      #additionalCodeCoverageFiles: # Optional
+      failIfCoverageEmpty: true # Optional
 
 - job: docker_build_push
   pool:
