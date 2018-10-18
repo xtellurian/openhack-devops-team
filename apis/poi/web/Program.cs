@@ -15,7 +15,7 @@ namespace poi
         public static async Task Main(string[] args)
         {
 
-            int delay = 10 * 1000;
+            int delay = 5 * 1000;
             int count = 20;
 
             for (int i = 0; i <= count;i++){
