@@ -22,8 +22,19 @@ jobs:
     coverageThreshold: 0
     integrationTestPath: 'apis/poi/tests/IntegrationTests/'
   steps:
-  - script: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Threshold=$(coverageThreshold) $(unitTestPath)
+  - script: dotnet test --logger:trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Threshold=$(coverageThreshold) $(unitTestPath)
   - script: dotnet test $(integrationTestPath)
+  # Publish Test Results to Azure Pipelines/TFS
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'VSTest' # Options: JUnit, NUnit, VSTest, xUnit
+      testResultsFiles: '**/TestResults/*.trx' 
+      #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
+      #mergeTestResults: false # Optional
+      #testRunTitle: # Optional
+      #buildPlatform: # Optional
+      #buildConfiguration: # Optional
+      #publishRunAttachments: true # Optional
   # Publish Cobertura or JaCoCo code coverage results from a build
   - task: PublishCodeCoverageResults@1
     inputs:
