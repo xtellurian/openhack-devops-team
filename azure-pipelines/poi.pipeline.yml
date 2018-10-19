@@ -19,15 +19,16 @@ jobs:
     vmImage: 'Ubuntu 16.04'
   variables: 
     unitTestPath: 'apis/poi/tests/UnitTests/'
+    coverageThreshold: 1
     integrationTestPath: 'apis/poi/tests/IntegrationTests/'
   steps:
-  - script: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura $(unitTestPath)
+  - script: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Threshold=$(coverageThreshold) $(unitTestPath)
   - script: dotnet test $(integrationTestPath)
   # Publish Cobertura or JaCoCo code coverage results from a build
   - task: PublishCodeCoverageResults@1
     inputs:
       codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
-      summaryFileLocation: $(unitTestPath)coverage.cobertura.xml
+      summaryFileLocation: $(Build.SourcesDirectory)/$(unitTestPath)coverage.cobertura.xml
       #reportDirectory: # Optional
       #additionalCodeCoverageFiles: # Optional
       failIfCoverageEmpty: true # Optional
