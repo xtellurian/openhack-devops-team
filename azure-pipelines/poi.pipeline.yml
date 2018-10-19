@@ -19,7 +19,7 @@ jobs:
     vmImage: 'Ubuntu 16.04'
   variables: 
     unitTestPath: 'apis/poi/tests/UnitTests/'
-    coverageThreshold: 1
+    coverageThreshold: 0
     integrationTestPath: 'apis/poi/tests/IntegrationTests/'
   steps:
   - script: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Threshold=$(coverageThreshold) $(unitTestPath)
